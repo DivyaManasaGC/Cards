@@ -3,8 +3,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ArrangeCards {
+	int LifeCount;
 	public boolean dealOrNoDeal(ArrayList<Card> HandOfCards) {
-		int ClubCount,DiamondCount,HeartCount,SpadeCount;
+		int ClubCount, DiamondCount, HeartCount, SpadeCount;
 		ArrayList<Integer> Clubs = new ArrayList<Integer>();
 		ArrayList<Integer> Diamonds = new ArrayList<Integer>();
 		ArrayList<Integer> Hearts = new ArrayList<Integer>();
@@ -27,32 +28,54 @@ public class ArrangeCards {
 		Collections.sort(Diamonds);
 		Collections.sort(Hearts);
 		Collections.sort(Spades);
-		 if(Clubs.size() > 3) {
-			 ClubCount = sequenceInHand(Clubs);
-		 }
-		 if(Diamonds.size() > 3) {
-			 DiamondCount = sequenceInHand(Diamonds);
-
-		 }
-		 if(Hearts.size() > 3) {
-			 HeartCount = sequenceInHand(Hearts);
-		 }
-		 if(Spades.size() > 3) {
-			 SpadeCount = sequenceInHand(Spades);
-		 }
-		return false;
+		sequenceInHand(Clubs);
+		sequenceInHand(Diamonds);
+		sequenceInHand(Hearts);
+		sequenceInHand(Spades);
+				return false;
 
 	}
-	public int sequenceInHand(ArrayList<Integer> CardsInHand) {
-		int count = 0;
-		for(int i=0; i<CardsInHand.size(); i++){
-            int curr = CardsInHand.get(i);
-            if (curr + 1 == CardsInHand.get(i + 1)){
-            	count++;
-            }
-        }
-		return count;
-	}
+
+	public void sequenceInHand(ArrayList<Integer> CardsInHand) {
+		
+		for (int i = 0; i < CardsInHand.size(); i++) {
+			int count = 0;
+			for (int j = i; j < i + 4 && i < 9; j++) {
+				int curr = CardsInHand.get(j);
+				if (curr + 1 == CardsInHand.get(j + 1)) {
+					count++;
+				} else {
+					break;
+				}
+			}
+			if(count >= 3){
+				LifeCount++;
+			}
+			continue;
+			}
 	
+}
+	public static void main(String args[]) {
+		ArrangeCards agg = new ArrangeCards();
+		ArrayList<Integer> CardsOfPlayer = new ArrayList<Integer>();
+		CardsOfPlayer.add(1);
+		CardsOfPlayer.add(2);
+		CardsOfPlayer.add(3);
+		CardsOfPlayer.add(4);
+		CardsOfPlayer.add(5);
+		CardsOfPlayer.add(6);
+		CardsOfPlayer.add(7);
+		CardsOfPlayer.add(8);
+		CardsOfPlayer.add(9);
+		CardsOfPlayer.add(10);
+		CardsOfPlayer.add(11);
+		CardsOfPlayer.add(12);
+		CardsOfPlayer.add(13);
+		Collections.sort(CardsOfPlayer);
+		agg.sequenceInHand(CardsOfPlayer);
+		System.out.println(agg.LifeCount);
+		
+	}
+
 }
 
